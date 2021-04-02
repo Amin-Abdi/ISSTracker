@@ -1,0 +1,42 @@
+#mapid {
+  height: 360px;
+}
+
+#col1 {
+  background-color: coral;
+  border: 1px solid black;
+}
+
+#col2 {
+  background-color: cyan;
+  border: 1px solid black;
+}
+
+#mapInfo {
+  margin: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.5rem;
+  background-color: rgb(170, 182, 185);
+}
+
+.head {
+  margin-top: 0.5rem;
+}
+
+#userInput {
+  border: 2px solid black;
+  margin-right: 1rem;
+}
+
+#submitBtn {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#latInput {
+  margin-bottom: 0.5rem;
+}
