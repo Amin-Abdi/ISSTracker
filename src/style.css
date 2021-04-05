@@ -7,6 +7,17 @@
   margin: 0.5rem;
 }
 
+body {
+  background-color: #fcfdff;
+}
+
+.head {
+  color: aliceblue;
+}
+#navbar {
+  background-color: black;
+}
+
 .grid {
   display: grid;
   place-items: center;
@@ -31,10 +42,6 @@
 #astronauts {
   border: 2px solid black;
   margin-right: 1rem;
-}
-
-.times p {
-  font-weight: 600;
 }
 
 #submitBtn {

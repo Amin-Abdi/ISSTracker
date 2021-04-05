@@ -80,7 +80,7 @@ document.querySelector(".input-form").addEventListener("submit", (e) => {
   e.preventDefault();
   const userLat = document.querySelector("#latInput").value;
   const userLong = document.querySelector("#longInput").value;
-  console.log("Lat: " + userLat + " Long: " + userLong);
+  //console.log("Lat: " + userLat + " Long: " + userLong);
 
   let timeUrl = PASS_TIMES_URL + "lat=" + userLat + "&lon=" + userLong;
   //Getting the overhead Times
@@ -88,10 +88,8 @@ document.querySelector(".input-form").addEventListener("submit", (e) => {
     fetch(timeUrl)
       .then((response) => response.json())
       .then((data) => {
-        // con,sole.log(data.response);
-        console.log(data.response);
-        console.log(data.response.length);
-        // console.log(data.response[0].risetime); //1617630671
+        // console.log(data.response);
+        // console.log(data.response.length);
         let timeDura = document.querySelector(".times");
 
         var myInfo = "<ul>";
