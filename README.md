@@ -14,4 +14,4 @@ The current location is updated every second since there is a rate limit
 
 ### Zoom in to see the movement of the ISS
 
-![ISS Demo](./ISS.gif)
+![ISS Demo](./ISSGif.gif)
