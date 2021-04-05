@@ -23,7 +23,6 @@ const myIcon = L.icon({
 
 //Initial position of marker
 const marker = L.marker([0, 0], { icon: myIcon }).addTo(mymap);
-
 const API_Url = "https://api.wheretheiss.at/v1/satellites/25544";
 const PASS_TIMES_URL = "http://api.open-notify.org/iss-pass.json?";
 const ASTRONAUT_URL = "http://api.open-notify.org/astros.json";
@@ -48,18 +47,19 @@ async function getISSPosition() {
   marker.setLatLng([latitude, longitude]);
 }
 
+function showAlert() {
+  var alert = document.querySelector("#myAlert");
+  alert.style.visibility = "visible";
+  setTimeout(function () {
+    alert.style.visibility = "hidden";
+  }, 3000);
+}
+
 async function getAstronauts() {
   const listOfAstronauts = document.querySelector("#astronauts");
-
   const response = await fetch(ASTRONAUT_URL);
   const data = await response.json();
-
   const people = data.people;
-
-  // console.log(people);
-  // console.log(people.length);
-  // console.log(people[0].name);
-
   var list = "<ul>";
   var heading = `<p style="font-weight: 600"> There are currently ${people.length} astronauts in space:</p>`;
 
@@ -73,24 +73,16 @@ async function getAstronauts() {
 
 getISSPosition();
 getAstronauts();
-
 //Fetching data every second
 setInterval(getISSPosition, 1000);
 
 document.querySelector(".input-form").addEventListener("submit", (e) => {
   e.preventDefault();
-
   const userLat = document.querySelector("#latInput").value;
   const userLong = document.querySelector("#longInput").value;
-
   console.log("Lat: " + userLat + " Long: " + userLong);
-  //lat=LAT&lon=LON
-  //http://api.open-notify.org/iss-pass.json?lat=51.5074&lon=0.1278
-
-  //"http://api.open-notify.org/iss-pass.json?";
 
   let timeUrl = PASS_TIMES_URL + "lat=" + userLat + "&lon=" + userLong;
-
   //Getting the overhead Times
   function getPassTimes() {
     fetch(timeUrl)
@@ -123,6 +115,5 @@ document.querySelector(".input-form").addEventListener("submit", (e) => {
         showAlert();
       });
   }
-
   getPassTimes();
 });
