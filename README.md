@@ -6,7 +6,7 @@ The website also displays the names of the astronauts that are currently in spac
 
 ## APIs USED
 
-To get the current location of the ISS I used [wheretheiss at](https://wheretheiss.at/)
+To get the current location of the ISS I used [wheretheiss at](https://wheretheiss.at/w/developer)
 
 For the overhead times and the names of the astronauts, [open notify api](http://open-notify.org/)
 
