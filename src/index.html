@@ -5,12 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-      crossorigin="anonymous"
-    />
-    <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
       integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -21,6 +15,13 @@
       integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
       crossorigin=""
     ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+
     <link rel="stylesheet" href="./style.css" />
     <title>ISS Tracker</title>
   </head>
@@ -31,7 +32,7 @@
     <div class="container">
       <div class="row" id="controls">
         <div class="col" id="userInput">
-          <form>
+          <form class="input-form">
             <div class="form-group">
               <h4>Check when the ISS will be overhead</h4>
               <input
@@ -40,14 +41,32 @@
                 placeholder="Latitude"
                 id="latInput"
               />
-              <input class="form-control" type="text" placeholder="Longitude" />
+              <input
+                class="form-control"
+                type="text"
+                placeholder="longitude"
+                id="longInput"
+              />
             </div>
             <button type="submit" class="btn btn-primary" id="submitBtn">
               Submit
             </button>
           </form>
+          <div class="alert alert-danger" id="myAlert" role="alert">
+            Invalid latitude or longitude. Please try again!
+          </div>
         </div>
-        <div class="col" id="col2">co2</div>
+        <div class="col" id="cols">
+          <p style="font-weight: 600">
+            The ISS will pass overhead at the following 5 times;
+          </p>
+          <div class="times"></div>
+        </div>
+        <div class="col" id="astronauts">
+          <p style="font-weight: 600">
+            These astronaughts are currently in space:
+          </p>
+        </div>
       </div>
     </div>
     <div class="container-fluid" id="content">
@@ -90,6 +109,7 @@
               </tr>
             </tbody>
           </table>
+          <p>*Updates every second*</p>
         </div>
       </div>
     </div>

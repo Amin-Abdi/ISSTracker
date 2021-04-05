@@ -25,6 +25,8 @@ const myIcon = L.icon({
 const marker = L.marker([0, 0], { icon: myIcon }).addTo(mymap);
 
 const API_Url = "https://api.wheretheiss.at/v1/satellites/25544";
+const PASS_TIMES_URL = "http://api.open-notify.org/iss-pass.json?";
+const ASTRONAUT_URL = "http://api.open-notify.org/astros.json";
 
 //Getting the current location of the International space station
 async function getISSPosition() {
@@ -43,18 +45,84 @@ async function getISSPosition() {
     velocity.toFixed(2) + " km/h";
 
   mymap.setView([latitude, longitude]);
-  // L.marker([latitude, longitude]).addTo(mymap);
   marker.setLatLng([latitude, longitude]);
+}
 
-  // console.log("id: ", id);
-  // console.log("Lat: ", latitude);
-  // console.log("Long: ", longitude);
-  // console.log("name: ", name);
-  // console.log("altitude: ", altitude);
-  // console.log("Velocity: ", velocity);
+async function getAstronauts() {
+  const listOfAstronauts = document.querySelector("#astronauts");
+
+  const response = await fetch(ASTRONAUT_URL);
+  const data = await response.json();
+
+  const people = data.people;
+
+  // console.log(people);
+  // console.log(people.length);
+  // console.log(people[0].name);
+
+  var list = "<ul>";
+  var heading = `<p style="font-weight: 600"> There are currently ${people.length} astronauts in space:</p>`;
+
+  // list += heading;
+  for (var i = 0; i < people.length; i++) {
+    list += `<p> ${people[i].name}</p>`;
+  }
+  list += "</ul>";
+  listOfAstronauts.innerHTML = heading + list;
 }
 
 getISSPosition();
+getAstronauts();
 
-//Fetching data every
+//Fetching data every second
 setInterval(getISSPosition, 1000);
+
+document.querySelector(".input-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const userLat = document.querySelector("#latInput").value;
+  const userLong = document.querySelector("#longInput").value;
+
+  console.log("Lat: " + userLat + " Long: " + userLong);
+  //lat=LAT&lon=LON
+  //http://api.open-notify.org/iss-pass.json?lat=51.5074&lon=0.1278
+
+  //"http://api.open-notify.org/iss-pass.json?";
+
+  let timeUrl = PASS_TIMES_URL + "lat=" + userLat + "&lon=" + userLong;
+
+  //Getting the overhead Times
+  function getPassTimes() {
+    fetch(timeUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        // con,sole.log(data.response);
+        console.log(data.response);
+        console.log(data.response.length);
+        // console.log(data.response[0].risetime); //1617630671
+        let timeDura = document.querySelector(".times");
+
+        var myInfo = "<ul>";
+        for (var i = 0; i < data.response.length; i++) {
+          var durationTime = data.response[i].duration / 60;
+          var unixTime = data.response[i].risetime * 1000;
+
+          //Converting from unix time to date time format at GMT
+          var s = new Date(unixTime).toLocaleDateString("en-GB");
+          var a = new Date(unixTime).toLocaleTimeString("en-GB");
+
+          myInfo += `<p> ${s + " " + a} GMT for ${durationTime.toFixed(
+            0
+          )} minutes`;
+        }
+        myInfo += "</ul>";
+        timeDura.innerHTML = myInfo;
+      })
+      .catch((error) => {
+        console.log("Error: ", error);
+        showAlert();
+      });
+  }
+
+  getPassTimes();
+});
