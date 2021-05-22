@@ -20,4 +20,4 @@ The current location is updated every second since there is a rate limit
 
 ### Here is an example using the latutuude and the longitude of London
 
-![](assets/ISSScreenshot.png)
+![Screenshot](assets/ISSScreenshot.png)
