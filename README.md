@@ -6,7 +6,7 @@ You can check when the ISS will be overheard at a certain location by using its 
 
 The website also displays the names of the astronauts that are currently in space.
 
-I use an open source interactive map library called Leaflet that can be found at https://leafletjs.com/
+I used an open source interactive map library called Leaflet that can be found at https://leafletjs.com/
 
 ## APIs USED
 
